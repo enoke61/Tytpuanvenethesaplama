@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // EditText ve Button tanımlamaları//
         idisim = findViewById(R.id.isim);
         idsoyisim = findViewById(R.id.soyisim);
         idturkced = findViewById(R.id.turkceD);
@@ -33,11 +32,10 @@ public class MainActivity extends AppCompatActivity {
         idfeny = findViewById(R.id.fenY);
         Button hesapla = findViewById(R.id.hesapla);
 
-        // Hesapla butonuna tıklama olayı//
         hesapla.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Kullanıcı girişlerini kontrol et
+
                 String isim = idisim.getText().toString().trim();
                 String soyisim = idsoyisim.getText().toString().trim();
 
@@ -46,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Ders sonuçlarını kontrol ederek al
                 int turkced = getIntFromEditText(idturkced);
                 int turkcey = getIntFromEditText(idturkcey);
                 int matematikd  = getIntFromEditText(idmatematikd);
@@ -56,17 +53,14 @@ public class MainActivity extends AppCompatActivity {
                 int fend = getIntFromEditText(idfend);
                 int feny = getIntFromEditText(idfeny);
 
-                // Ders netlerini hesapla
                 float turkcenet = enet(turkced, turkcey);
                 float matematiknet = enet(matematikd, matematiky);
                 float sosyalnet = enet(sosyald, sosyaly);
                 float fennet = enet(fend, feny);
 
-                // Toplam net ve puan hesapla
                 float toplamnet = turkcenet + matematiknet + sosyalnet + fennet;
                 float toplampuan = epuan(toplamnet);
 
-                // Verileri SharedPreferences ile sakla
                 SharedPreferences sharedPreferences = getSharedPreferences("TYT", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("isim", isim);
@@ -78,14 +72,12 @@ public class MainActivity extends AppCompatActivity {
                 editor.putFloat("toplampuan", toplampuan);
                 editor.apply();
 
-                // Sonuç ekranına yönlendir
                 Intent intent = new Intent(MainActivity.this, com.example.final_proje.DenemeActivity.class);
                 startActivity(intent);
             }
         });
     }
 
-    // EditText'ten tamsayı değer alma (boşsa varsayılan değer 0)
     private int getIntFromEditText(EditText editText) {
         String text = editText.getText().toString().trim();
         if (text.isEmpty()) {
@@ -95,12 +87,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // 4 yanlış 1 doğruyu götürüyor
     private float enet(int dogru, int yanlis) {
         return dogru - (yanlis / 4.0f);
     }
 
-    // Puan hesaplama (isteğe göre değiştirilebilir)
     private float epuan(float toplamnet) {
         return 100 + (toplamnet * 3); // 100 temel puan + net başına 3 puan
     }

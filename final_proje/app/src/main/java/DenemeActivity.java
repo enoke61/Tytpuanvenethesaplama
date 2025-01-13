@@ -17,7 +17,6 @@ public class DenemeActivity extends AppCompatActivity {
 
         tvResults = findViewById(R.id.tvResults);
 
-        // SharedPreferences'ten verileri al
         SharedPreferences sharedPreferences = getSharedPreferences("TYT", MODE_PRIVATE);
         String isim = sharedPreferences.getString("isim", "N/A");
         String soyisim = sharedPreferences.getString("soyisim", "N/A");
@@ -27,7 +26,6 @@ public class DenemeActivity extends AppCompatActivity {
         float fennet = sharedPreferences.getFloat("fennet", 0);
         float toplampuan = sharedPreferences.getFloat("toplampuan", 0);
 
-        // Sonuçları oluştur
         String results = String.format("Ad: %s %s\nTürkçe Net: %.2f\nMatematik Net: %.2f\nSosyal Net: %.2f\nFen Net: %.2f\nToplam Puan: %.2f",
                 isim, soyisim,turkcenet, matematiknet, sosyalnet, fennet, toplampuan);
         tvResults.setText(results);
